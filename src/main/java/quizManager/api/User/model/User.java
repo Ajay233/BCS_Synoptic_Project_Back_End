@@ -16,4 +16,11 @@ public class User {
     private String password;
     private String permission;
 
+    public User(){}
+    public User(String username, String password, String permission){
+        this.username = username;
+        this.password = password;
+        this.permission = permission;
+    }
+
 }

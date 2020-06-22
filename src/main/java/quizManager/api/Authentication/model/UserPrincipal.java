@@ -1,9 +1,9 @@
-package quizManager.api.authentication;
+package quizManager.api.Authentication.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import quizManager.api.User.model.User;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,8 +11,6 @@ import java.util.Collections;
 public class UserPrincipal implements UserDetails {
 
     private User user;
-
-    public UserPrincipal(){}
 
     public UserPrincipal(User user){
         super();

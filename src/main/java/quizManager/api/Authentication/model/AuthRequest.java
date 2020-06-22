@@ -1,4 +1,4 @@
-package quizManager.api.authentication;
+package quizManager.api.Authentication.model;
 
 import lombok.Data;
 
@@ -7,5 +7,7 @@ public class AuthRequest {
 
     private String username;
     private String password;
+
+    public AuthRequest(){}
 
 }

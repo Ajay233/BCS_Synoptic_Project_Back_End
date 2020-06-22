@@ -1,4 +1,4 @@
-package quizManager.api.authentication;
+package quizManager.api.Authentication.model;
 
 import lombok.Data;
 import quizManager.api.User.model.User;

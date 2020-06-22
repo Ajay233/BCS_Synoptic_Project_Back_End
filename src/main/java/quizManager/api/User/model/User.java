@@ -1,4 +1,4 @@
-package quizManager.api;
+package quizManager.api.User.model;
 
 import lombok.Data;
 

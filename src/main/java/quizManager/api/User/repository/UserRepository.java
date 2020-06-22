@@ -1,9 +1,10 @@
-package quizManager.api;
+package quizManager.api.User.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import quizManager.api.User.model.User;
 
 import javax.transaction.Transactional;
 

@@ -3,9 +3,15 @@ package quizManager.api.Answer;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
+@Entity
+@Table(name = "answers")
 public class Answer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long questionId;
     private String answerIndex;

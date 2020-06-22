@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  demo-db:
+    image: "mysql:8.0.19"
+    ports:
+      - "32860:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=quiz_manager
+      - MYSQL_USER=adminuser
+      - MYSQL_PASSWORD=adminpassword123
+    container_name: quiz-manager
+    volumes:
+      - quiz-manager-data:/var/lib/mysql
+
+  demo-test-db:
+    image: "mysql:8.0.19"
+    ports:
+      - "32861:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=quiz_manager
+      - MYSQL_USER=adminuser
+      - MYSQL_PASSWORD=adminpassword123
+    container_name: quiz-manager-tests
+    volumes:
+      - quiz-manager-test-data:/var/lib/mysql
+
+volumes:
+  quiz-manager-data:
+  quiz-manager-test-data:

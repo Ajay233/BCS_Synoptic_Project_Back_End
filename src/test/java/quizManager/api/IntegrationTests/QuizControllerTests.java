@@ -1,4 +1,4 @@
-package quizManager.api;
+package quizManager.api.IntegrationTests;
 
 import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import quizManager.api.Authentication.model.UserPrincipal;
+import quizManager.api.JwtUtil;
 import quizManager.api.Quiz.Quiz;
 import quizManager.api.Quiz.QuizRepository;
 import quizManager.api.User.model.User;

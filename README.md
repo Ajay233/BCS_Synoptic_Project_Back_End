@@ -3,16 +3,16 @@
 ## How to run
 
 First create the database:
-- docker-compose up -d
+- `docker-compose up -d`
 
 Then run the app using the maven command:
 - mvn spring-boot:run
 
 To quit the app use:
-- ctrl + c
+- `ctrl + c`
 
 Then to close the DB container use:
-- docker-compose down
+- `docker-compose down`
 
 Once the app is up and running, open your browser and copy and paste `http://localhost:8080` into your browser address bar.
 

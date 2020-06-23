@@ -16,7 +16,6 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
-    // find by name
 
     @RequestMapping(value = "/quiz/findByName", method = RequestMethod.GET)
     private ResponseEntity<?> findQuizByName(@RequestParam String name){
@@ -28,7 +27,6 @@ public class QuizController {
         }
     }
 
-    // create
 
     @RequestMapping(value = "/quiz/create", method = RequestMethod.POST)
     private ResponseEntity<?> createQuiz(@RequestBody Quiz quiz){
@@ -40,7 +38,6 @@ public class QuizController {
         }
     }
 
-    // update
 
     @RequestMapping(value = "/quiz/update", method = RequestMethod.PUT)
     private ResponseEntity<?> updateQuiz(@RequestBody Quiz quiz){
@@ -55,9 +52,16 @@ public class QuizController {
             return new ResponseEntity<String>("Quiz not found", HttpStatus.BAD_REQUEST);
         }
     }
-
-    // delete
-
     
+
+    @RequestMapping(value = "/quiz/delete", method = RequestMethod.DELETE)
+    private ResponseEntity<String> deleteQuiz(Quiz quiz){
+        if(quizRepository.existsById(quiz.getId())){
+            quizService.deleteQuiz(quiz);
+            return new ResponseEntity<String>("Quiz deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Unable to delete - Quiz not found", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

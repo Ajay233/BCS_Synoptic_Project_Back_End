@@ -38,6 +38,10 @@ public class QuestionService {
         return quizIdValid(questions) && questionNumberValid(questions) && descriptionValid(questions);
     }
 
+    public Boolean allExist(List<Question> questions){
+        return questions.stream().allMatch(question -> questionsRepository.existsById(question.getId()));
+    }
+
     public void deleteQuestions(List<Question> questions){
         questions.stream().forEach(question -> {
             List<Answer> answers = answerRepository.findByQuestionId(question.getId());

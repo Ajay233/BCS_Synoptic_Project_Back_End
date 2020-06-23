@@ -10,7 +10,7 @@ import java.util.List;
 public class SortingUtil {
 
     public void questionsSelectSort(List<Question> questions, int listSize){
-        int highestIndex = listSize -1;
+        int highestIndex = listSize - 1;
 
         for(int i = 0; i < highestIndex; i++){
 
@@ -33,16 +33,19 @@ public class SortingUtil {
     }
 
     public void answerSelectSort(List<Answer> answers, int listSize){
-        int highestIndex = listSize -1;
+        int highestIndex = listSize - 1;
 
         for(int i = 0; i < highestIndex; i++){
 
             String smallestVal = answers.get(i).getAnswerIndex();
             int indexOfSmallestVal = i;
 
+            System.out.println("---starting new run---");
+
             for(int x = i; x < highestIndex; x++){
-                if(smallestVal.compareTo(answers.get(x + 1).getAnswerIndex()) == 1){
+                if(smallestVal.compareTo(answers.get(x + 1).getAnswerIndex()) > 0){
                     smallestVal = answers.get(x + 1).getAnswerIndex();
+                    System.out.println("New smallest val: " + smallestVal);
                     indexOfSmallestVal = x + 1;
                 }
             }
@@ -52,6 +55,10 @@ public class SortingUtil {
             answers.set(i, valToSwap);
             answers.set(indexOfSmallestVal, startingVal);
 
+            System.out.println("starting val: " + startingVal);
+            System.out.println("val to swap: " + valToSwap);
+            System.out.println(answers);
+            System.out.println("---end run---");
         }
     }
 

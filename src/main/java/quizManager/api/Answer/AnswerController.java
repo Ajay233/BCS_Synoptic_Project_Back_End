@@ -3,10 +3,7 @@ package quizManager.api.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,8 +29,30 @@ public class AnswerController {
     }
 
     // create
+    @RequestMapping(value = "/answer/create", method = RequestMethod.POST)
+    private ResponseEntity<?> createAnswers(@RequestBody List<Answer> answers){
+        if(answerService.answerFieldsValid(answers)){
+            List<Answer> savedAnswers = answerRepository.saveAll(answers);
+            return new ResponseEntity<List>(savedAnswers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
+        }
+    }
 
     // update
+    @RequestMapping(value = "/answer/update", method = RequestMethod.PUT)
+    private ResponseEntity<?> updateAnswers(@RequestBody List<Answer> answers){
+        if(answerService.allExist(answers)) {
+            if (answerService.answerFieldsValid(answers)) {
+                List<Answer> updatedAnswers = answerRepository.saveAll(answers);
+                return new ResponseEntity<List>(updatedAnswers, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<String>("Answers not found", HttpStatus.NO_CONTENT);
+        }
+    }
 
     // delete
 

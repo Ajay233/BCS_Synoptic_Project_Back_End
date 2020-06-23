@@ -45,7 +45,11 @@ public class QuestionService {
     public void deleteQuestions(List<Question> questions){
         questions.stream().forEach(question -> {
             List<Answer> answers = answerRepository.findByQuestionId(question.getId());
-            answerRepository.deleteAll(answers);
+            if(!answers.isEmpty()){
+                answerRepository.deleteAll(answers);
+            } else {
+                return;
+            }
         });
         questionsRepository.deleteAll(questions);
     }

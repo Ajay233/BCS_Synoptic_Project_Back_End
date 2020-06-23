@@ -55,7 +55,7 @@ public class QuizController {
 
 
     @RequestMapping(value = "/quiz/delete", method = RequestMethod.DELETE)
-    private ResponseEntity<String> deleteQuiz(Quiz quiz){
+    private ResponseEntity<String> deleteQuiz(@RequestBody Quiz quiz){
         if(quizRepository.existsById(quiz.getId())){
             quizService.deleteQuiz(quiz);
             return new ResponseEntity<String>("Quiz deleted", HttpStatus.OK);

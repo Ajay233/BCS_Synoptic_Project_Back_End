@@ -31,7 +31,9 @@ public class QuizService {
 
     public void deleteQuiz(Quiz quiz){
         List<Question> questions = questionsRepository.findByQuizId(quiz.getId());
-        questionService.deleteQuestions(questions);
+        if(!questions.isEmpty()){
+            questionService.deleteQuestions(questions);
+        }
         quizRepository.delete(quiz);
     }
 

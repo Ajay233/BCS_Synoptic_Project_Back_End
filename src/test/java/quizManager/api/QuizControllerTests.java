@@ -14,9 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import quizManager.api.Answer.AnswerRepository;
 import quizManager.api.Authentication.model.UserPrincipal;
-import quizManager.api.Question.QuestionsRepository;
 import quizManager.api.Quiz.Quiz;
 import quizManager.api.Quiz.QuizRepository;
 import quizManager.api.User.model.User;
@@ -31,12 +29,6 @@ public class QuizControllerTests {
 
     @Autowired
     QuizRepository quizRepository;
-
-    @Autowired
-    QuestionsRepository questionsRepository;
-
-    @Autowired
-    AnswerRepository answerRepository;
 
     @Autowired
     JwtUtil jwtUtil;
@@ -66,8 +58,6 @@ public class QuizControllerTests {
     void tearDown(){
         userRepository.truncateTable();
         quizRepository.truncateTable();
-        questionsRepository.truncateTable();
-        answerRepository.truncateTable();
     }
 
     @Test
@@ -105,6 +95,18 @@ public class QuizControllerTests {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("updatedQuizName"));
+    }
+
+    @Test
+    public void deleteQuiz() throws Exception {
+
+        System.out.println("Quiz exists? " + quizRepository.existsById(savedQuiz.getId()));
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/quiz/delete")
+                .headers(header)
+                .content(gson.toJson(savedQuiz)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Quiz deleted"));
     }
 
 }

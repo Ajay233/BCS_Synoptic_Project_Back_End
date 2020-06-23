@@ -31,4 +31,8 @@ public class AnswerService {
         return questionIdValid(answers) && indexesValid(answers) && descriptionValid(answers);
     }
 
+    public Boolean allExist(List<Answer> answers){
+        return answers.stream().allMatch(answer -> answerRepository.existsById(answer.getId()));
+    }
+
 }

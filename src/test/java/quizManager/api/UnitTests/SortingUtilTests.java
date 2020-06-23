@@ -1,4 +1,4 @@
-package quizManager.api;
+package quizManager.api.UnitTests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,7 +65,7 @@ public class SortingUtilTests {
         answers.add(answer5);
         answers.add(answer2);
         answers.add(answer1);
-        answers.add(answer4); 
+        answers.add(answer4);
         sortingUtil.answerSelectSort(answers, answers.size());
         System.out.println(answers);
         Assertions.assertEquals(answers, orderedAnswers);

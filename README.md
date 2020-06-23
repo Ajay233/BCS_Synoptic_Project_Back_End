@@ -6,7 +6,7 @@ First create the database:
 - `docker-compose up -d`
 
 Then run the app using the maven command:
-- mvn spring-boot:run
+- `mvn spring-boot:run`
 
 To quit the app use:
 - `ctrl + c`

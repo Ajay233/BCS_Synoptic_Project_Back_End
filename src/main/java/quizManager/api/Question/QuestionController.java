@@ -3,10 +3,7 @@ package quizManager.api.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,9 +30,32 @@ public class QuestionController {
 
 
     // create
+    @RequestMapping(value = "/question/create", method = RequestMethod.POST)
+    private ResponseEntity<?> createQuestions(@RequestBody List<Question> questions){
+        if(questionService.questionFieldsValid(questions)){
+            List<Question> savedQuestions = questionsRepository.saveAll(questions);
+            return new ResponseEntity<List>(savedQuestions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
     // update
+    @RequestMapping(value = "/question/update", method = RequestMethod.PUT)
+    private ResponseEntity<?> updateQuestions(@RequestBody List<Question> questions){
+        if(questionService.allExist(questions)) {
+            if (questionService.questionFieldsValid(questions)) {
+                List<Question> updatedQuestions = questionsRepository.saveAll(questions);
+                return new ResponseEntity<List>(updatedQuestions, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<String>("Questions not found", HttpStatus.NO_CONTENT);
+        }
+    }
+
 
 
     // answer

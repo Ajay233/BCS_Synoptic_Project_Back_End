@@ -42,10 +42,10 @@ public class QuestionControllerTests {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private User user = new User("testUser", encoder.encode("testpassword"), "Edit");
-    private Question question1 = new Question((long) 1, 1, "test question");
-    private Question question2 = new Question((long) 1, 2, "test question2");
-    private Question question3 = new Question((long) 2, 1, "test question");
-    private Question question4 = new Question((long) 2, 2, "test question2");
+    private Question question1;
+    private Question question2;
+    private Question question3;
+    private Question question4;
     private HttpHeaders header = new HttpHeaders();
     private Gson gson = new Gson();
 

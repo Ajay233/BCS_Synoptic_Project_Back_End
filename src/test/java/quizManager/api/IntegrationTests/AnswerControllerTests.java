@@ -21,6 +21,8 @@ import quizManager.api.JwtUtil;
 import quizManager.api.User.model.User;
 import quizManager.api.User.repository.UserRepository;
 
+import java.util.ArrayList;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AnswerControllerTests {
@@ -78,6 +80,61 @@ public class AnswerControllerTests {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value(answer1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value(answer2));
+    }
+
+    @Test
+    public void createAnswer() throws Exception {
+
+        ArrayList<Answer> answers = new ArrayList<>();
+        Answer answer5 = new Answer((long) 2, "C", "test answer");
+        Answer answer6 = new Answer((long) 2, "D", "test answer");
+
+        answers.add(answer5);
+        answers.add(answer6);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/answer/create")
+                .headers(header)
+                .content(gson.toJson(answers)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value(answerRepository.findById((long) 5).get()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value(answerRepository.findById((long) 6).get()));
+    }
+
+    @Test
+    public void updateAnswer() throws Exception {
+
+        ArrayList<Answer> answers = new ArrayList<>();
+        answer1.setDescription("Updated question 1");
+        answer2.setDescription("Updated question 2");
+
+        answers.add(answer1);
+        answers.add(answer2);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/answer/update")
+                .headers(header)
+                .content(gson.toJson(answers)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value(answer1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value(answer2));
+    }
+
+    @Test
+    public void deleteAnswer() throws Exception {
+
+        ArrayList<Answer> answers = new ArrayList<>();
+        answer1.setDescription("Updated question 1");
+        answer2.setDescription("Updated question 2");
+
+        answers.add(answer1);
+        answers.add(answer2);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/answer/delete")
+                .headers(header)
+                .content(gson.toJson(answers)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Answer deleted"));
     }
 
 }

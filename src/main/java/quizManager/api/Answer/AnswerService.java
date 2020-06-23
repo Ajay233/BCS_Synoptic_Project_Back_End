@@ -12,7 +12,7 @@ public class AnswerService {
     AnswerRepository answerRepository;
 
     private Boolean questionIdValid(List<Answer> answers){
-        return answers.stream().allMatch(answer -> answer.getQuestionId().getClass().equals(long.class));
+        return answers.stream().allMatch(answer -> answer.getQuestionId().getClass().equals(Long.class));
     }
 
     private Boolean indexesValid(List<Answer> answers){

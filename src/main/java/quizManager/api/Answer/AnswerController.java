@@ -19,7 +19,7 @@ public class AnswerController {
 
     // find by question id
     @RequestMapping(value = "/answer/findByQuestionId", method = RequestMethod.GET)
-    private ResponseEntity<?> findAnswerByQuestionId(@RequestParam Long questionId){
+    private ResponseEntity<?> findAnswersByQuestionId(@RequestParam Long questionId){
         List<Answer> answers = answerRepository.findByQuestionId(questionId);
         if(!answers.isEmpty()){
             return new ResponseEntity<List>(answers, HttpStatus.OK);
@@ -55,5 +55,14 @@ public class AnswerController {
     }
 
     // delete
+    @RequestMapping(value = "/answer/delete", method = RequestMethod.DELETE)
+    private ResponseEntity<String> deleteAnswers(@RequestBody List<Answer> answers){
+        if(answerService.allExist(answers)){
+            answerRepository.deleteAll(answers);
+            return new ResponseEntity<String>("Answer deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Answers not found", HttpStatus.NO_CONTENT);
+        }
+    }
 
 }

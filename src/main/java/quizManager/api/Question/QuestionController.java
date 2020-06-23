@@ -58,7 +58,16 @@ public class QuestionController {
 
 
 
-    // answer
+    // delete
 
+    @RequestMapping(value = "/question/delete", method = RequestMethod.DELETE)
+    private ResponseEntity<String> deleteQuestions(@RequestBody List<Question> questions){
+        if(questionService.allExist(questions)){
+            questionService.deleteQuestions(questions);
+            return new ResponseEntity<String>("Question deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Questions not found", HttpStatus.NO_CONTENT);
+        }
+    }
 
 }

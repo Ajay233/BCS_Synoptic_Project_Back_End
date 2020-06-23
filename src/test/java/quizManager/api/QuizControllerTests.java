@@ -93,4 +93,18 @@ public class QuizControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$").value(quizRepository.findById((long) 2).get()));
     }
 
+    @Test
+    public void updateQuiz() throws Exception {
+
+        savedQuiz.setName("updatedQuizName");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/quiz/update")
+                .headers(header)
+                .content(gson.toJson(savedQuiz)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("updatedQuizName"));
+    }
+
 }

@@ -23,7 +23,7 @@ public class QuizController {
         if(!quizzes.isEmpty()){
             return new ResponseEntity<List>(quizzes, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("No quizzes found by that name", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("No quizzes found by that name", HttpStatus.NO_CONTENT);
         }
     }
 
@@ -49,10 +49,10 @@ public class QuizController {
                 return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
             }
         } else {
-            return new ResponseEntity<String>("Quiz not found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Quiz not found", HttpStatus.NO_CONTENT);
         }
     }
-    
+
 
     @RequestMapping(value = "/quiz/delete", method = RequestMethod.DELETE)
     private ResponseEntity<String> deleteQuiz(Quiz quiz){
@@ -60,7 +60,7 @@ public class QuizController {
             quizService.deleteQuiz(quiz);
             return new ResponseEntity<String>("Quiz deleted", HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("Unable to delete - Quiz not found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Unable to delete - Quiz not found", HttpStatus.NO_CONTENT);
         }
     }
 

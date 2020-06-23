@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import quizManager.api.Utils.SortingUtil;
 
 import java.util.List;
 
@@ -16,12 +17,16 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
+    @Autowired
+    SortingUtil sortingUtil;
+
 
     // find by quiz id
     @RequestMapping(value = "/question/findByQuizId", method = RequestMethod.GET)
     private ResponseEntity<?> findQuestionByQuizId(@RequestParam Long quizId){
         List<Question> questions = questionsRepository.findByQuizId(quizId);
         if(!questions.isEmpty()){
+            sortingUtil.questionsSelectSort(questions, questions.size());
             return new ResponseEntity<List>(questions, HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("This quiz currently has no questions", HttpStatus.NO_CONTENT);

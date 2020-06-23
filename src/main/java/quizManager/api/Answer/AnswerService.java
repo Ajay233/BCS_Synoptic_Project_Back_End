@@ -3,6 +3,7 @@ package quizManager.api.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +34,19 @@ public class AnswerService {
 
     public Boolean allExist(List<Answer> answers){
         return answers.stream().allMatch(answer -> answerRepository.existsById(answer.getId()));
+    }
+
+    public List<Answer> capitalise(List<Answer> answers){
+        ArrayList<Answer> list = new ArrayList<>();
+        answers.stream().forEach(answer -> {
+            if(answer.getAnswerIndex().matches("[a-z]")){
+                answer.setAnswerIndex(answer.getAnswerIndex().toUpperCase());
+                list.add(answer);
+            } else {
+                list.add(answer);
+            }
+        });
+        return list;
     }
 
 }

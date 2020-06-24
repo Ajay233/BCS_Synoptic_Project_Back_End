@@ -27,6 +27,16 @@ public class QuizController {
         }
     }
 
+    @RequestMapping(value = "/quiz/getAll", method = RequestMethod.GET)
+    private ResponseEntity<?> getAllQuizzes(){
+        List<Quiz> quizzes = quizRepository.findAll();
+        if(!quizzes.isEmpty()){
+            return new ResponseEntity<List>(quizzes, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("No quizzes - The quiz manager is currently empty", HttpStatus.NO_CONTENT);
+        }
+    }
+
 
     @RequestMapping(value = "/quiz/create", method = RequestMethod.POST)
     private ResponseEntity<?> createQuiz(@RequestBody Quiz quiz){

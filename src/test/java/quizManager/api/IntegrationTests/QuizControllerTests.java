@@ -40,7 +40,13 @@ public class QuizControllerTests {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private User user = new User("testUser", encoder.encode("testpassword"), "Edit");
     private Quiz quiz1 = new Quiz("testQuiz");
+    private Quiz quiz2 = new Quiz("testQuiz2");
+    private Quiz quiz3 = new Quiz("testQuiz3");
+    private Quiz quiz4 = new Quiz("testQuiz4");
     private Quiz savedQuiz;
+    private Quiz savedQuiz2;
+    private Quiz savedQuiz3;
+    private Quiz savedQuiz4;
     private HttpHeaders header = new HttpHeaders();
     private Gson gson = new Gson();
 
@@ -53,6 +59,9 @@ public class QuizControllerTests {
         header.add("Content-Type", "application/json");
         header.add("Authorization", "Bearer " + jwt);
         savedQuiz = quizRepository.save(quiz1);
+        savedQuiz2 = quizRepository.save(quiz2);
+        savedQuiz3 = quizRepository.save(quiz3);
+        savedQuiz4 = quizRepository.save(quiz4);
     }
 
     @AfterEach
@@ -69,6 +78,18 @@ public class QuizControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value(savedQuiz));
+    }
+
+    @Test
+    public void getAllQuizzes() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/quiz/getAll")
+                .headers(header))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value(savedQuiz))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value(savedQuiz2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[2]").value(savedQuiz3))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[3]").value(savedQuiz4));
     }
 
     @Test

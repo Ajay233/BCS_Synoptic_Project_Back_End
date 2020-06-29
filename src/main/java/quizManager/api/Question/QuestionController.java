@@ -57,7 +57,7 @@ public class QuestionController {
                 return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
             }
         } else {
-            return new ResponseEntity<String>("Questions not found", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Questions not found", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -71,7 +71,7 @@ public class QuestionController {
             questionService.deleteQuestions(questions);
             return new ResponseEntity<String>("Question deleted", HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("Questions not found", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Questions not found", HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -61,9 +61,4 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    private ResponseEntity<?> test(){
-        return new ResponseEntity<String>("Endpoint accessed", HttpStatus.OK);
-    }
-
 }

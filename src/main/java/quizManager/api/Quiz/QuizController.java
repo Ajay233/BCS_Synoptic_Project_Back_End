@@ -59,7 +59,7 @@ public class QuizController {
                 return new ResponseEntity<String>("Invalid values provided - Please check and try again", HttpStatus.BAD_REQUEST);
             }
         } else {
-            return new ResponseEntity<String>("Quiz not found", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Quiz not found", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -70,7 +70,7 @@ public class QuizController {
             quizService.deleteQuiz(quiz);
             return new ResponseEntity<String>("Quiz deleted", HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("Unable to delete - Quiz not found", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Unable to delete - Quiz not found", HttpStatus.BAD_REQUEST);
         }
     }
 
